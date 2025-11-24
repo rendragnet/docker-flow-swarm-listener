@@ -14,10 +14,6 @@ COPY . .
 RUN go clean -modcache
 RUN go mod tidy
 
-RUN go version
-RUN go env | grep -E "GO|GOROOT|GOTOOLD"
-
-RUN grep -R "package errors" -n /go/pkg/mod | head -n 50
 RUN go build -o docker-flow-swarm-listener -ldflags "-w"
 
 # Final runtime image
@@ -47,7 +43,7 @@ CMD ["docker-flow-swarm-listener"]
 
 HEALTHCHECK --interval=10s --start-period=5s --timeout=5s CMD wget -qO- "http://localhost:8080/v1/docker-flow-swarm-listener/ping"
 
-COPY --from=build /app/docker-flow-swarm-listener /usr/local/bin/docker-flow-swarm-listener
+COPY --from=build /develop/docker-flow-swarm-listener /usr/local/bin/docker-flow-swarm-listener
 
 ENTRYPOINT ["docker-flow-swarm-listener"]
 
