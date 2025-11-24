@@ -1,0 +1,52 @@
+stages:
+  - build
+
+variables:
+  # This tells docker-in-docker to use K8s docker.sock is exposed via localhost
+  DOCKER_HOST: tcp://docker:2376/
+  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_TLS_VERIFY: 1
+  DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+  GIT_SUBMODULE_STRATEGY: recursive
+  # Prevent BuildKit to avoid hidden build behavior
+  DOCKER_BUILDKIT: "0"
+
+  # Registry defaults — GitLab automatically injects CI_REGISTRY, CI_REGISTRY_IMAGE, etc.
+  IMAGE: "$CI_REGISTRY_IMAGE"
+
+# Common docker login step for all jobs
+.before_script_login: &before_script_login
+  - until docker info; do sleep 1; done
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+# -----------------------------------------
+# Build & push image on develop
+# -----------------------------------------
+build_develop:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+  before_script:
+    - *before_script_login
+  script:
+    - docker build -t "$IMAGE:develop" .
+    - docker push "$IMAGE:develop"
+  tags:
+    - docker
+
+# -----------------------------------------
+# Build & push image on master
+# -----------------------------------------
+build_master:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  before_script:
+    - *before_script_login
+  script:
+    - docker build -t "$IMAGE:latest" -t "$IMAGE:$CI_COMMIT_SHORT_SHA" .
+    - docker push "$IMAGE:latest"
+    - docker push "$IMAGE:$CI_COMMIT_SHORT_SHA"
+  tags:
+    - docker
+

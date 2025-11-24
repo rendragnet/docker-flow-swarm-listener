@@ -1,19 +1,23 @@
-module github.com/docker-flow/docker-flow-swarm-listener
+module github.com/rendragnet/docker-flow-swarm-listener
+
+replace github.com/rendragnet/docker-flow-swarm-listener => .
+replace github.com/docker-flow/docker-flow-swarm-listener => .
+replace github.com/docker/docker => github.com/docker/docker v24.0.7+incompatible
 
 require (
 	github.com/Microsoft/go-winio v0.4.11 // indirect
 	github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/docker/distribution v2.7.0-rc.0.0.20181024170156-93e082742a00+incompatible // indirect
-	github.com/docker/docker v0.7.3-0.20181027010111-b8e87cfdad8d
+	github.com/docker/docker v24.0.7+incompatible
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.3.3 // indirect
-	github.com/gogo/protobuf v1.1.1 // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.2.0 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
-	github.com/pkg/errors v0.8.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_golang v0.9.0
 	github.com/prometheus/client_model v0.0.0-20180712105110-5c3871d89910 // indirect
