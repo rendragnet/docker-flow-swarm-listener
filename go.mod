@@ -2,7 +2,7 @@ module github.com/rendragnet/docker-flow-swarm-listener
 
 replace github.com/rendragnet/docker-flow-swarm-listener => .
 replace github.com/docker-flow/docker-flow-swarm-listener => .
-replace github.com/docker/docker => github.com/docker/docker v24.0.7+incompatible
+replace github.com/docker/docker => github.com/docker/docker v27.1.1+incompatible
 
 require (
 	github.com/Microsoft/go-winio v0.4.11 // indirect
