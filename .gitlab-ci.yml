@@ -31,8 +31,6 @@ build_develop:
   script:
     - docker build -t "$IMAGE:develop" .
     - docker push "$IMAGE:develop"
-  tags:
-    - docker
 
 # -----------------------------------------
 # Build & push image on master
@@ -47,6 +45,4 @@ build_master:
     - docker build -t "$IMAGE:latest" -t "$IMAGE:$CI_COMMIT_SHORT_SHA" .
     - docker push "$IMAGE:latest"
     - docker push "$IMAGE:$CI_COMMIT_SHORT_SHA"
-  tags:
-    - docker
 
