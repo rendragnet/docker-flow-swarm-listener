@@ -19,8 +19,6 @@ RUN go build -o docker-flow-swarm-listener -ldflags "-w"
 # Final runtime image
 FROM alpine:3.19
 
-RUN apk add --no-cache ca-certificates
-
 ENV DF_DOCKER_HOST="unix:///var/run/docker.sock" \
     DF_NOTIFICATION_URL="" \
     DF_RETRY="50" \
