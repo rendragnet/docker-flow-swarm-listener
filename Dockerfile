@@ -19,7 +19,7 @@ RUN go build -o docker-flow-swarm-listener -ldflags "-w"
 # Final runtime image
 FROM debian:stable-slim
 
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && \
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && \
     rm -rf /var/lib/apt/lists/*
 
 ENV DF_DOCKER_HOST="unix:///var/run/docker.sock" \
