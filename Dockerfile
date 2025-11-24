@@ -17,7 +17,10 @@ RUN go mod tidy
 RUN go build -o docker-flow-swarm-listener -ldflags "-w"
 
 # Final runtime image
-FROM alpine:3.19
+FROM debian:stable-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
 ENV DF_DOCKER_HOST="unix:///var/run/docker.sock" \
     DF_NOTIFICATION_URL="" \
